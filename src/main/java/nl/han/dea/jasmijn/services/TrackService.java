@@ -14,24 +14,12 @@ public class TrackService {
     private TrackDAO trackDAO;
 
     public List<TrackDTO> allTracks() {
-
-        List<TrackDTO> trackListDTO = null;
-        try {
-            trackListDTO = trackDAO.getAllTracks();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return trackListDTO;
+        return trackDAO.getAllTracks();
     }
 
-//    public TrackTDO findById(int id){
-//        for(TrackDAO playList : allTracks().getPlaylists()){
-//            if (playList.getId() == id) {
-//                return playList;
-//            }
-//        }
-//        return null;
-//    }
+    public List<TrackDTO> getTracksByPlaylistId(int id) {
+        return trackDAO.getTracksByPlaylistId(id);
+    }
 
     @Inject
     public void setTrackDAO(TrackDAO trackDAO){

@@ -5,6 +5,7 @@ import nl.han.dea.jasmijn.dao.PlayListDAO;
 import nl.han.dea.jasmijn.dao.TrackDAO;
 import nl.han.dea.jasmijn.dto.TracksDTO;
 import nl.han.dea.jasmijn.services.PlayListService;
+import nl.han.dea.jasmijn.services.TrackService;
 import nl.han.dea.jasmijn.services.UserService;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 public class PlayListController {
     private PlayListService playListService;
     private UserService userService;
+    private TrackService trackService;
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -32,7 +34,7 @@ public class PlayListController {
         if(!userService.tokenIsCorrect(token)){
             return Response.status(401).build();
         }
-        TracksDTO tracksDTO = new TracksDTO(playListService.findById(playlistId).getTracks());
+        TracksDTO tracksDTO = new TracksDTO(trackService.getTracksByPlaylistId(playlistId));
 
         return Response.ok(tracksDTO).build();
     }
@@ -47,6 +49,11 @@ public class PlayListController {
         this.playListService = playListService;
 
         System.out.println("we zijn onder playlistController -> inject playlistService!!!!!!!");
+    }
+
+    @Inject
+    public void setTrackService(TrackService trackService){
+        this.trackService = trackService;
     }
 
 

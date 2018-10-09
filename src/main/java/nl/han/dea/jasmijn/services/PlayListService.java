@@ -31,6 +31,7 @@ public class PlayListService {
         return new PlayListsDTO(playListDTOS);
     }
 
+    // TODO aangepast worden -> query die 1 lijst ophaald
     public PlayListDTO findById(int id){
         for(PlayListDTO playList : all().getPlaylists()){
             if (playList.getId() == id) {
