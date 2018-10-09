@@ -13,7 +13,7 @@ public abstract class DatabaseDAO {
 
     protected void loadDriver() {
         try {
-            Class.forName(dbProperties.getDriver());
+            Class.forName(dbProperties.getDriver());//hoi
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
