@@ -46,4 +46,18 @@ public abstract class DatabaseDAO {
             e.printStackTrace();
         }
     }
+
+    //TODO dit is dubbel
+    protected void closeConnection(Connection connection, PreparedStatement statement){
+        try {
+            if(connection != null) {
+                connection.close();
+            }
+            if(statement != null) {
+                statement.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

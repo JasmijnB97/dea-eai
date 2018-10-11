@@ -15,11 +15,8 @@ public class PlayListService {
 
     public PlayListsDTO all(){
         List<PlayListDTO> playListDTOS = null;
-        try {
             playListDTOS = playListDAO.getAllPlayLists();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
 
         for(PlayListDTO playlist : playListDTOS) {
                 playlist.setTracks(trackService.allTracks());

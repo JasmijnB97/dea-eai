@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/login")
-public class LoginController {//dit staat alleen bij develop
+public class LoginController {
 
     private UserService userService;
 
