@@ -30,7 +30,7 @@ public class LoginController {
 
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
         loginResponseDTO.setUser(user);
-        loginResponseDTO.setToken(userService.getToken());
+        loginResponseDTO.setToken(userService.getToken());//getToken()
 
         return Response.ok(loginResponseDTO).build();
     }

@@ -17,7 +17,6 @@ public abstract class DatabaseDAO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("werkt!!");
     }
 
 

@@ -41,15 +41,11 @@ public class PlayListService {
     @Inject
     public void setUserService(TrackService trackService){
         this.trackService = trackService;
-
-        System.out.println("we zijn onder playlistService -> inject trackservice");
     }
 
     @Inject
     public void setPlayListDAO(PlayListDAO playListDAO){
         this.playListDAO = playListDAO;
-
-        System.out.println("we zijn onder playlistService -> inject playlistDAO");
     }
 
 

@@ -72,8 +72,6 @@ public class PlayListController {
     @Inject
     public void setPlayListService(PlayListService playListService){
         this.playListService = playListService;
-
-        System.out.println("we zijn onder playlistController -> inject playlistService!!!!!!!");
     }
 
     @Inject

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class PlayListDAO extends DatabaseDAO {
 
-    private static final String GET_ALL_SQL = "SELECT * FROM playlist";
-    private static final String UPDATE_NAME_SQL = "UPDATE playlist SET name = ? WHERE id = ?";
+    private static final String GET_ALL_PLAYLISTS = "SELECT * FROM playlist";
+    private static final String UPDATE_NAME_PLAYLIST = "UPDATE playlist SET name = ? WHERE id = ?";
     private static final String CREATE_PLAYLIST = "INSERT INTO playlist (name, owner) VALUES (?, ?)";
     private static final String DELETE_PLAYLIST = "DELETE FROM playlist WHERE id = ?";
 
@@ -19,7 +19,7 @@ public class PlayListDAO extends DatabaseDAO {
         ResultSet rs = null;
         try {
             connection = getDbConnection();
-            statement = connection.prepareStatement(GET_ALL_SQL);
+            statement = connection.prepareStatement(GET_ALL_PLAYLISTS);
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -40,7 +40,7 @@ public class PlayListDAO extends DatabaseDAO {
         PreparedStatement statement = null;
         try{
             connection = getDbConnection();
-            statement = connection.prepareStatement(UPDATE_NAME_SQL);
+            statement = connection.prepareStatement(UPDATE_NAME_PLAYLIST);
 
             statement.setString(1, playListDTO.getName());
             statement.setInt(2, id);
