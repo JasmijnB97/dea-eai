@@ -1,6 +1,7 @@
 package nl.han.dea.jasmijn.dao;
 
 import nl.han.dea.jasmijn.dto.PlayListDTO;
+import nl.han.dea.jasmijn.dto.TrackDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,10 +9,11 @@ import java.util.ArrayList;
 public class PlayListDAO extends DatabaseDAO {
 
     private static final String GET_ALL_PLAYLISTS = "SELECT * FROM playlist";
-//    private static final String GET_ALL_PLAYLISTS_BY_ID = "SELECT * FROM playlist WHERE owner_id = ?";
     private static final String UPDATE_NAME_PLAYLIST = "UPDATE playlist SET name = ? WHERE id = ?";
     private static final String CREATE_PLAYLIST = "INSERT INTO playlist (name, owner_id) VALUES (?, ?)";
     private static final String DELETE_PLAYLIST = "DELETE FROM playlist WHERE id = ?";
+    private static final String ADD_TRACK_TO_PLAYLIST = "INSERT INTO trackinplaylist (playlist_id, track_id) VALUES (?, ?)";
+    private static final String DELETE_TRACK_FROM_PLAYLIST = "DELETE FROM trackinplaylist WHERE playlist_id = ? AND track_id = ?";
 
     public ArrayList<PlayListDTO> getAllPlayLists(int userId)  {
         ArrayList<PlayListDTO> playlists = new ArrayList<>();
@@ -21,8 +23,6 @@ public class PlayListDAO extends DatabaseDAO {
         try {
             connection = getDbConnection();
             statement = connection.prepareStatement(GET_ALL_PLAYLISTS);
-//            statement = connection.prepareStatement(GET_ALL_PLAYLISTS_BY_ID);
-//            statement.setInt(1, id); //nieuw
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -86,6 +86,43 @@ public class PlayListDAO extends DatabaseDAO {
             statement = connection.prepareStatement(DELETE_PLAYLIST);
 
             statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection, statement);
+        }
+    }
+
+
+    public void deleteTrackFromPlayList(int playListId, int trackId){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = getDbConnection();
+            statement = connection.prepareStatement(DELETE_TRACK_FROM_PLAYLIST);
+
+            statement.setInt(1, playListId);
+            statement.setInt(2, trackId);
+
+            statement.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection, statement);
+        }
+    }
+
+    public void addTrackToPlayList(int playListId, TrackDTO trackDTO){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = getDbConnection();
+            statement = connection.prepareStatement(ADD_TRACK_TO_PLAYLIST);
+
+            statement.setInt(1, playListId);
+            statement.setInt(2, trackDTO.getId());
 
             statement.executeUpdate();
         } catch (SQLException e){

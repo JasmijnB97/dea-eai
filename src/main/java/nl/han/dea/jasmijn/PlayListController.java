@@ -4,6 +4,7 @@ package nl.han.dea.jasmijn;
 import nl.han.dea.jasmijn.dao.PlayListDAO;
 import nl.han.dea.jasmijn.dao.TrackDAO;
 import nl.han.dea.jasmijn.dto.PlayListDTO;
+import nl.han.dea.jasmijn.dto.TrackDTO;
 import nl.han.dea.jasmijn.dto.TracksDTO;
 import nl.han.dea.jasmijn.services.PlayListService;
 import nl.han.dea.jasmijn.services.TrackService;
@@ -40,6 +41,14 @@ public class PlayListController {
         return Response.ok(tracksDTO).build();
     }
 
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{id}/tracks")
+    public void addTrackToPlaylist(@PathParam("id") int playListId, TrackDTO trackDTO){
+        playListDAO.addTrackToPlayList(playListId,trackDTO);
+    }
+
     @Path("{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,6 +72,14 @@ public class PlayListController {
         playListDAO.deletePlayList(id);
         return Response.ok(playListService.all()).build();
     }
+
+    @Path("{id}/tracks/{trackId}")
+    @DELETE
+    @Produces({MediaType.APPLICATION_JSON})
+    public void deleteTrackFromPlayList(@PathParam("id") int playListId, @PathParam("trackId") int trackId){
+        playListDAO.deleteTrackFromPlayList(playListId, trackId);
+    }
+
 
     @Inject
     public void setUserService(UserService userService){
