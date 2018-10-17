@@ -14,6 +14,7 @@ public class UserDAO extends DatabaseDAO{
 
     private static final String GET_USER = "SELECT * FROM user";
     private static final String UPDATE_TOKEN = "UPDATE user SET token = ? WHERE name = ? AND password = ?";
+//private static final String UPDATE_TOKEN = "UPDATE user SET token = ? WHERE name = 'jasmijn' AND password = 'wachtwoord'";
 
 
     public LoginRequestDTO getUser(){
@@ -40,21 +41,25 @@ public class UserDAO extends DatabaseDAO{
     }
 
     public void setToken(String token, String name, String password){
+        System.out.println("ik ben in setToken DAO");
         Connection connection = null;
         PreparedStatement statement = null;
         try{
+            System.out.println("ik ben in de try van setToken DAO");
             connection = getDbConnection();
             statement = connection.prepareStatement(UPDATE_TOKEN);
 
             statement.setString(1, token);
             statement.setString(2, name);
-            statement.setString(2, password);
+            statement.setString(3, password);
 
             statement.executeUpdate();
         } catch (SQLException e){
+            System.out.println("ik ben helaas in de catch van setToken DAO");
             e.printStackTrace();
         } finally {
             closeConnection(connection, statement);
+            System.out.println("ik heb net de connectie gesloten van setToken DAO");
         }
     }
 }
