@@ -16,6 +16,7 @@ public class UserService {
     public void setToken(String token, String name, String password) {
             this.token = token;
             userDAO.setToken(token, name, password);
+        System.out.println("ik ben in setToken van userService");
     }
 
     public String getToken() {
@@ -23,17 +24,23 @@ public class UserService {
     }
 
     public boolean authenticate(String name, String password){
+        System.out.println("valid name = " + userDAO.getUser(token).getUser());
+        System.out.println("valid password = " + userDAO.getUser(token).getPassword());
         return (validUserName(name) && validPassword(password));
     }
 
     public boolean validUserName (String name) {
-        if(name.equals(userDAO.getUser().getUser())) return true;
+        if(name.equals(userDAO.getUser(token).getUser())) return true;
         return false;
     }
 
     public boolean validPassword (String password) {
-        if(password.equals(userDAO.getUser().getPassword())) return true;
+        if(password.equals(userDAO.getUser(token).getPassword())) return true;
         return false;
+    }
+
+    public int getUserId(){
+        return userDAO.getUserId(token);
     }
 
     @Inject

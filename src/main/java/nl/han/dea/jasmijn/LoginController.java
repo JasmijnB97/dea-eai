@@ -22,8 +22,11 @@ public class LoginController {
     @Produces({MediaType.APPLICATION_JSON}) //geef je aan wat voor datatype de server terug moet geven.
     @Consumes({MediaType.APPLICATION_JSON})  //wat voor datatype de server accepteert.
     public Response login(LoginRequestDTO loginRequestDTO){
+
         String name = loginRequestDTO.getUser();
+        System.out.println("name = " + name);
         String password = loginRequestDTO.getPassword();
+        System.out.println("password = " + password);
         RandomStringGenerator generator = new RandomStringGenerator();
         String token = generator.generateFromPattern("nnncnnncnccn");
         userService.setToken(token, name, password);

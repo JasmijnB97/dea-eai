@@ -52,7 +52,7 @@ public class PlayListController {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createPlayList(PlayListDTO playListDTO){
-        playListDAO.createPlayList(playListDTO);
+        playListService.createPlayList(playListDTO);
         return Response.ok(playListService.all()).build();
     }
 

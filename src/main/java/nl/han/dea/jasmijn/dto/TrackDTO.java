@@ -1,14 +1,12 @@
 package nl.han.dea.jasmijn.dto;
 
-import java.util.Date;
-
 public class TrackDTO {
     private int id;
     private String title;
     private String performer;
     private int duration;
     private String album;
-    private int playcount;
+    private int paycount;
     private String publicationDate;
     private String description;
     private boolean offlineAvailable;
@@ -17,13 +15,13 @@ public class TrackDTO {
 
     }
     public TrackDTO(int id,String title, String performer, int duration, String album,
-                    int playcount, String publicationDate, String description, boolean offlineAvailable){
+                    int paycount, String publicationDate, String description, boolean offlineAvailable){
         this.id = id;
         this.title = title;
         this.performer = performer;
         this.duration = duration;
         this.album = album;
-        this.playcount = playcount;
+        this.paycount = paycount;
         this.publicationDate = publicationDate;
         this.description = description;
         this.offlineAvailable = offlineAvailable;
@@ -70,12 +68,12 @@ public class TrackDTO {
         this.album = album;
     }
 
-    public int getPlaycount() {
-        return playcount;
+    public int getPaycount() {
+        return paycount;
     }
 
-    public void setPlaycount(int playcount) {
-        this.playcount = playcount;
+    public void setPaycount(int paycount) {
+        this.paycount = paycount;
     }
 
     public String getPublicationDate() {

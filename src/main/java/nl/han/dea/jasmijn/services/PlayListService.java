@@ -1,6 +1,7 @@
 package nl.han.dea.jasmijn.services;
 
 import nl.han.dea.jasmijn.dao.PlayListDAO;
+import nl.han.dea.jasmijn.dao.UserDAO;
 import nl.han.dea.jasmijn.dto.PlayListDTO;
 import nl.han.dea.jasmijn.dto.PlayListsDTO;
 
@@ -12,11 +13,12 @@ import java.util.List;
 public class PlayListService {
     private TrackService trackService;
     private PlayListDAO playListDAO;
+    private UserService userService;
+
 
     public PlayListsDTO all(){
         List<PlayListDTO> playListDTOS = null;
-            playListDTOS = playListDAO.getAllPlayLists();
-
+            playListDTOS = playListDAO.getAllPlayLists(userService.getUserId());
 
         for(PlayListDTO playlist : playListDTOS) {
                 playlist.setTracks(trackService.allTracks());
@@ -26,6 +28,10 @@ public class PlayListService {
         playListsDTO.setLength(123445);
 
         return new PlayListsDTO(playListDTOS);
+    }
+
+    public void createPlayList(PlayListDTO playListDTO){
+        playListDAO.createPlayList(playListDTO, userService.getUserId());
     }
 
     // TODO aangepast worden -> query die 1 lijst ophaald
@@ -48,5 +54,8 @@ public class PlayListService {
         this.playListDAO = playListDAO;
     }
 
-
+    @Inject
+    public void setUserService(UserService userService){
+        this.userService = userService;
+    }
 }

@@ -12,12 +12,13 @@ import java.util.ArrayList;
 
 public class UserDAO extends DatabaseDAO{
 
-    private static final String GET_USER = "SELECT * FROM user";
+//    private static final String GET_USER = "SELECT * FROM user";
+    private static final String GET_USER = "SELECT * FROM user  WHERE token = ?";
     private static final String UPDATE_TOKEN = "UPDATE user SET token = ? WHERE name = ? AND password = ?";
-//private static final String UPDATE_TOKEN = "UPDATE user SET token = ? WHERE name = 'jasmijn' AND password = 'wachtwoord'";
+    private static final String GET_USER_ID = "SELECT id FROM user WHERE token = ?";
 
 
-    public LoginRequestDTO getUser(){
+    public LoginRequestDTO getUser(String token){
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -25,6 +26,7 @@ public class UserDAO extends DatabaseDAO{
         try {
             connection = getDbConnection();
             statement = connection.prepareStatement(GET_USER);
+            statement.setString(1, token);
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -41,11 +43,9 @@ public class UserDAO extends DatabaseDAO{
     }
 
     public void setToken(String token, String name, String password){
-        System.out.println("ik ben in setToken DAO");
         Connection connection = null;
         PreparedStatement statement = null;
         try{
-            System.out.println("ik ben in de try van setToken DAO");
             connection = getDbConnection();
             statement = connection.prepareStatement(UPDATE_TOKEN);
 
@@ -55,11 +55,34 @@ public class UserDAO extends DatabaseDAO{
 
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println("ik ben helaas in de catch van setToken DAO");
             e.printStackTrace();
         } finally {
             closeConnection(connection, statement);
-            System.out.println("ik heb net de connectie gesloten van setToken DAO");
         }
+    }
+
+    public int getUserId(String token){
+        int userId = -1;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            connection = getDbConnection();
+            statement = connection.prepareStatement(GET_USER_ID);
+            System.out.println("token in getUserId = " + token);
+            statement.setString(1, token);
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                userId = rs.getInt("id");
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection, statement, rs);
+        }
+        System.out.println("userId = " + userId);
+        return userId;
     }
 }
