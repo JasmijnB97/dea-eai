@@ -20,28 +20,21 @@ public class PlayListService {
         List<PlayListDTO> playListDTOS = null;
             playListDTOS = playListDAO.getAllPlayLists(userService.getUserId());
 
+            //TODO checken of dit hier wel nodig is
         for(PlayListDTO playlist : playListDTOS) {
-                playlist.setTracks(trackService.allTracks());
+                //playlist.setTracks(trackService.allTracks());
+            playlist.setTracks(trackService.getTracksByPlaylistId(playlist.getId()));
         }
 
         PlayListsDTO playListsDTO = new PlayListsDTO(playListDTOS);
-        playListsDTO.setLength(123445);
+        playListsDTO.setLength(trackService.getTotalTracksLength());
+        System.out.println("getLength = " + playListsDTO.getLength());
 
         return new PlayListsDTO(playListDTOS);
     }
 
     public void createPlayList(PlayListDTO playListDTO){
         playListDAO.createPlayList(playListDTO, userService.getUserId());
-    }
-
-    // TODO aangepast worden -> query die 1 lijst ophaald
-    public PlayListDTO findById(int id){
-        for(PlayListDTO playList : all().getPlaylists()){
-            if (playList.getId() == id) {
-                return playList;
-            }
-        }
-        return null;
     }
 
     @Inject

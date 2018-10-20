@@ -11,24 +11,6 @@ import javax.ws.rs.core.Response;
 
 public class LoginControllerTest {
 
-    private UserService us;
-
-    @BeforeEach
-    public void setup(){
-        us = new UserService();
-    }
-
-    @Test
-    public void shouldReturnTrueForValidUserName(){
-        boolean validUser = us.validUserName("jasmijn");
-        Assertions.assertEquals(true, validUser);
-    }
-
-    @Test
-    public void shouldReturnTrueForValidPassword(){
-        boolean validPassword = us.validPassword("wachtwoord");
-        Assertions.assertEquals(true, validPassword);
-    }
 @Test
     public void testOfUserServiceReturnOk(){
         //setup

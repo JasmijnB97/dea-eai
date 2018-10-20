@@ -69,7 +69,6 @@ public class UserDAO extends DatabaseDAO{
         try {
             connection = getDbConnection();
             statement = connection.prepareStatement(GET_USER_ID);
-            System.out.println("token in getUserId = " + token);
             statement.setString(1, token);
             rs = statement.executeQuery();
 
@@ -82,7 +81,6 @@ public class UserDAO extends DatabaseDAO{
         } finally {
             closeConnection(connection, statement, rs);
         }
-        System.out.println("userId = " + userId);
         return userId;
     }
 }

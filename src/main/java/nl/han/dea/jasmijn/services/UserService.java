@@ -16,7 +16,6 @@ public class UserService {
     public void setToken(String token, String name, String password) {
             this.token = token;
             userDAO.setToken(token, name, password);
-        System.out.println("ik ben in setToken van userService");
     }
 
     public String getToken() {
@@ -24,8 +23,6 @@ public class UserService {
     }
 
     public boolean authenticate(String name, String password){
-        System.out.println("valid name = " + userDAO.getUser(token).getUser());
-        System.out.println("valid password = " + userDAO.getUser(token).getPassword());
         return (validUserName(name) && validPassword(password));
     }
 

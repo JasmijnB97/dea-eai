@@ -17,6 +17,10 @@ public class TrackService {
         return trackDAO.getTracksByPlaylistId(id);
     }
 
+    public int getTotalTracksLength(){
+        return trackDAO.getTotalTracksLength();
+    }
+
     @Inject
     public void setTrackDAO(TrackDAO trackDAO){
         this.trackDAO = trackDAO;

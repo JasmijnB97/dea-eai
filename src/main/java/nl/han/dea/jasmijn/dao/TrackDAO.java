@@ -9,6 +9,8 @@ public class TrackDAO extends DatabaseDAO {
 
     private static final String ALLSQL = "SELECT * FROM track";
     private static final String TRACKS_BY_PLAYLIST_ID_SQL = "SELECT track.* FROM track INNER JOIN trackinplaylist ON track.id = trackinplaylist.track_id WHERE trackinplaylist.playlist_id = ?";
+    private static final String TOTAL_TRACK_LENGTH = "SELECT SUM(duration) AS total FROM track";
+//    private static final String TOTAL_TRACK_LENGTH = "SELECT SUM(duration) AS totaal FROM track INNER JOIN trackinplaylist ON track.id = trackinplaylist.track_id WHERE trackinplaylist.playlist_id = ?";
 
     public ArrayList<TrackDTO> getAllTracks(){
         ArrayList<TrackDTO> tracklists = new ArrayList<>();
@@ -61,7 +63,26 @@ public class TrackDAO extends DatabaseDAO {
         return tracklists;
     }
 
+    //TODO moet dit voor het totaal van de playlists of per playlist?
+    public int getTotalTracksLength() {
+        int totalTracksLength = -1;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            connection = getDbConnection();
+            statement = connection.prepareStatement(TOTAL_TRACK_LENGTH);
+            rs = statement.executeQuery();
 
+            while (rs.next()) {
+                totalTracksLength = rs.getInt("total");
+            }
 
-
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection, statement, rs);
+        }
+        return totalTracksLength;
+    }
 }
