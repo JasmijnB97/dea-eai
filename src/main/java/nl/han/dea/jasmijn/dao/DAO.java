@@ -1,13 +1,17 @@
 package nl.han.dea.jasmijn.dao;
 
 import nl.han.dea.jasmijn.datasource.util.DatabaseProperties;
-import java.sql.*;
+import nl.han.dea.jasmijn.dto.PlayListDTO;
 
-public abstract class DatabaseDAO {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class DAO {
 
     protected DatabaseProperties dbProperties = new DatabaseProperties();
 
-    protected DatabaseDAO(){
+    protected DAO(){
         loadDriver();
     }
 
@@ -59,4 +63,31 @@ public abstract class DatabaseDAO {
             e.printStackTrace();
         }
     }
+
+    public void updateQuery(String query, List<Object> values){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = getDbConnection();
+            statement = connection.prepareStatement(query);
+
+            int bindingPosition = 1;
+            for(Object value : values) {
+                if(value instanceof String) {
+                    statement.setString(bindingPosition, (String) value);
+                } else if (value instanceof Integer){
+                    statement.setInt(bindingPosition, (Integer) value);
+                } else if (value instanceof Boolean) {
+                    statement.setBoolean(bindingPosition, (Boolean) value);
+                }
+                bindingPosition++;
+            }
+            statement.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(connection, statement);
+        }
+    }
+
 }

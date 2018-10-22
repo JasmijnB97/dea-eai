@@ -5,8 +5,9 @@ import nl.han.dea.jasmijn.dto.TrackDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class PlayListDAO extends DatabaseDAO {
+public class PlayListDAO extends DAO {
 
     private static final String GET_ALL_PLAYLISTS = "SELECT * FROM playlist";
     private static final String UPDATE_NAME_PLAYLIST = "UPDATE playlist SET name = ? WHERE id = ?";
@@ -43,92 +44,41 @@ public class PlayListDAO extends DatabaseDAO {
     }
 
     public void updatePlayList(int playlistId, PlayListDTO playListDTO){
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try{
-            connection = getDbConnection();
-            statement = connection.prepareStatement(UPDATE_NAME_PLAYLIST);
+        List<Object> bindings = new ArrayList<>();
+        bindings.add(playlistId);
+        bindings.add(playListDTO);
 
-            statement.setString(1, playListDTO.getName());
-            statement.setInt(2, playlistId);
-
-            statement.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection, statement);
-        }
+        updateQuery(UPDATE_NAME_PLAYLIST, bindings);
     }
 
     public void createPlayList(PlayListDTO playListDTO, int user_id){
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try{
-            connection = getDbConnection();
-            statement = connection.prepareStatement(CREATE_PLAYLIST);
+        List<Object> bindings = new ArrayList<>();
+        bindings.add(playListDTO.getName());
+        bindings.add(user_id);
 
-            statement.setString(1, playListDTO.getName());
-            statement.setInt(2, user_id);
-
-            statement.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection, statement);
-        }
+        updateQuery(CREATE_PLAYLIST, bindings);
     }
 
     public void deletePlayList(int id){
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try{
-            connection = getDbConnection();
-            statement = connection.prepareStatement(DELETE_PLAYLIST);
+        List<Object> bindings = new ArrayList<>();
+        bindings.add(id);
 
-            statement.setInt(1, id);
-
-            statement.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection, statement);
-        }
+        updateQuery(DELETE_PLAYLIST, bindings);
     }
 
-
     public void deleteTrackFromPlayList(int playListId, int trackId){
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try{
-            connection = getDbConnection();
-            statement = connection.prepareStatement(DELETE_TRACK_FROM_PLAYLIST);
+        List<Object> bindings = new ArrayList<>();
+        bindings.add(playListId);
+        bindings.add(trackId);
 
-            statement.setInt(1, playListId);
-            statement.setInt(2, trackId);
-
-            statement.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection, statement);
-        }
+        updateQuery(DELETE_TRACK_FROM_PLAYLIST, bindings);
     }
 
     public void addTrackToPlayList(int playListId, TrackDTO trackDTO){
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try{
-            connection = getDbConnection();
-            statement = connection.prepareStatement(ADD_TRACK_TO_PLAYLIST);
+        List<Object> bindings = new ArrayList<>();
+        bindings.add(playListId);
+        bindings.add(trackDTO.getId());
 
-            statement.setInt(1, playListId);
-            statement.setInt(2, trackDTO.getId());
-
-            statement.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection, statement);
-        }
+        updateQuery(ADD_TRACK_TO_PLAYLIST, bindings);
     }
 }

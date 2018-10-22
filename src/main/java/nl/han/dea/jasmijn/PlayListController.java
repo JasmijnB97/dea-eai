@@ -53,7 +53,7 @@ public class PlayListController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePlayList(@PathParam("id") int id, PlayListDTO playListDTO) {
-        playListDAO.updatePlayList(id, playListDTO);
+        playListService.updatePlayList(id, playListDTO);
         return Response.ok(playListService.all()).build();
     }
 
@@ -69,7 +69,7 @@ public class PlayListController {
     @DELETE
     @Produces({MediaType.APPLICATION_JSON})
     public Response deletePlayList(@PathParam("id") int id){
-        playListDAO.deletePlayList(id);
+        playListService.deletePlayList(id);
         return Response.ok(playListService.all()).build();
     }
 
@@ -77,7 +77,7 @@ public class PlayListController {
     @DELETE
     @Produces({MediaType.APPLICATION_JSON})
     public void deleteTrackFromPlayList(@PathParam("id") int playListId, @PathParam("trackId") int trackId){
-        playListDAO.deleteTrackFromPlayList(playListId, trackId);
+        playListService.deleteTrackFromPlayList(playListId, trackId);
     }
 
 

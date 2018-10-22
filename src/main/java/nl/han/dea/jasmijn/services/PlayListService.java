@@ -37,6 +37,18 @@ public class PlayListService {
         playListDAO.createPlayList(playListDTO, userService.getUserId());
     }
 
+    public void updatePlayList(int id, PlayListDTO playListDTO){
+        playListDAO.updatePlayList(id, playListDTO);
+    }
+
+    public void deletePlayList(int id){
+        playListDAO.deletePlayList(id);
+    }
+
+    public void deleteTrackFromPlayList(int playListId, int trackId) {
+        playListDAO.deleteTrackFromPlayList(playListId, trackId);
+    }
+
     @Inject
     public void setUserService(TrackService trackService){
         this.trackService = trackService;

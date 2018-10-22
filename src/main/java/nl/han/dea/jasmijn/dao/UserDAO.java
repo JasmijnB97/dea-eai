@@ -1,18 +1,16 @@
 package nl.han.dea.jasmijn.dao;
 
 import nl.han.dea.jasmijn.dto.LoginRequestDTO;
-import nl.han.dea.jasmijn.dto.PlayListDTO;
-import nl.han.dea.jasmijn.dto.TrackDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class UserDAO extends DatabaseDAO{
+public class UserDAO extends DAO {
 
-//    private static final String GET_USER = "SELECT * FROM user";
     private static final String GET_USER = "SELECT * FROM user  WHERE token = ?";
     private static final String UPDATE_TOKEN = "UPDATE user SET token = ? WHERE name = ? AND password = ?";
     private static final String GET_USER_ID = "SELECT id FROM user WHERE token = ?";
@@ -43,22 +41,12 @@ public class UserDAO extends DatabaseDAO{
     }
 
     public void setToken(String token, String name, String password){
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try{
-            connection = getDbConnection();
-            statement = connection.prepareStatement(UPDATE_TOKEN);
+        List<Object> bindings = new ArrayList<>();
+        bindings.add(token);
+        bindings.add(name);
+        bindings.add(password);
 
-            statement.setString(1, token);
-            statement.setString(2, name);
-            statement.setString(3, password);
-
-            statement.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            closeConnection(connection, statement);
-        }
+        updateQuery(UPDATE_TOKEN, bindings);
     }
 
     public int getUserId(String token){

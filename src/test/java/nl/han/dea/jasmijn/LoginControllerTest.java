@@ -11,22 +11,40 @@ import javax.ws.rs.core.Response;
 
 public class LoginControllerTest {
 
-@Test
-    public void testOfUserServiceReturnOk(){
+    private LoginController loginController;
+
+    @BeforeEach
+    public void setup(){
         //setup
-        LoginController loginController = new LoginController();
-        UserService userService= Mockito.mock(UserService.class);
+        loginController = new LoginController();
+        UserService userService = Mockito.mock(UserService.class);
         loginController.setUserService(userService);
-        Mockito.when(userService.authenticate(Mockito.anyString(), Mockito.anyString())).thenReturn(true);//false
+        Mockito.when(userService.authenticate("testuser", "testwachtwoord")).thenReturn(true);//false
+
+    }
+
+    @Test
+    public void testOfUserServiceReturnOk() {
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
         loginRequestDTO.setUser("testuser");
         loginRequestDTO.setPassword("testwachtwoord");
-
         //test
         Response test = loginController.login(loginRequestDTO);
 
         //Verify
-        Assertions.assertEquals(200, test.getStatus());//404
+        Assertions.assertEquals(200, test.getStatus());
+    }
+
+    @Test
+    public void testOfUserServiceReturn401() {
+        LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
+        loginRequestDTO.setUser("testuser");
+        loginRequestDTO.setPassword("fouttttttt");
+        //test
+        Response test = loginController.login(loginRequestDTO);
+
+        //Verify
+        Assertions.assertEquals(401, test.getStatus());
     }
 
 }

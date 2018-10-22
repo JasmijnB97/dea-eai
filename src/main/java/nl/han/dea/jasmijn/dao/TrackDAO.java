@@ -5,12 +5,11 @@ import nl.han.dea.jasmijn.dto.TrackDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TrackDAO extends DatabaseDAO {
+public class TrackDAO extends DAO {
 
     private static final String ALLSQL = "SELECT * FROM track";
     private static final String TRACKS_BY_PLAYLIST_ID_SQL = "SELECT track.* FROM track INNER JOIN trackinplaylist ON track.id = trackinplaylist.track_id WHERE trackinplaylist.playlist_id = ?";
     private static final String TOTAL_TRACK_LENGTH = "SELECT SUM(duration) AS total FROM track";
-//    private static final String TOTAL_TRACK_LENGTH = "SELECT SUM(duration) AS totaal FROM track INNER JOIN trackinplaylist ON track.id = trackinplaylist.track_id WHERE trackinplaylist.playlist_id = ?";
 
     public ArrayList<TrackDTO> getAllTracks(){
         ArrayList<TrackDTO> tracklists = new ArrayList<>();
