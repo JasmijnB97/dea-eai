@@ -1,4 +1,4 @@
-package nl.han.dea.jasmijn.dto;
+package nl.han.dea.jasmijn.dtos;
 
 import java.util.List;
 

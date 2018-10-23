@@ -1,6 +1,6 @@
-package nl.han.dea.jasmijn.datasource.dao;
+package nl.han.dea.jasmijn.datasource.daos;
 
-import nl.han.dea.jasmijn.dto.LoginRequestDTO;
+import nl.han.dea.jasmijn.dtos.LoginRequestDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

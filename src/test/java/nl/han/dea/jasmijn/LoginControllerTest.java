@@ -1,6 +1,7 @@
 package nl.han.dea.jasmijn;
 
-import nl.han.dea.jasmijn.dto.LoginRequestDTO;
+import nl.han.dea.jasmijn.controllers.LoginController;
+import nl.han.dea.jasmijn.dtos.LoginRequestDTO;
 import nl.han.dea.jasmijn.services.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

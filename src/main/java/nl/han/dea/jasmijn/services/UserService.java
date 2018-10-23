@@ -1,6 +1,6 @@
 package nl.han.dea.jasmijn.services;
 
-import nl.han.dea.jasmijn.datasource.dao.UserDAO;
+import nl.han.dea.jasmijn.datasource.daos.UserDAO;
 
 import javax.inject.Inject;
 

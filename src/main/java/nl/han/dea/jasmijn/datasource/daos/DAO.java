@@ -1,4 +1,4 @@
-package nl.han.dea.jasmijn.datasource.dao;
+package nl.han.dea.jasmijn.datasource.daos;
 
 import nl.han.dea.jasmijn.datasource.DatabaseProperties;
 

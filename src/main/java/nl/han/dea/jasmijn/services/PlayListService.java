@@ -1,13 +1,12 @@
 package nl.han.dea.jasmijn.services;
 
-import nl.han.dea.jasmijn.datasource.dao.PlayListDAO;
-import nl.han.dea.jasmijn.dto.PlayListDTO;
-import nl.han.dea.jasmijn.dto.PlayListsDTO;
-import nl.han.dea.jasmijn.dto.TrackDTO;
-import nl.han.dea.jasmijn.dto.TracksDTO;
+import nl.han.dea.jasmijn.datasource.daos.PlayListDAO;
+import nl.han.dea.jasmijn.dtos.PlayListDTO;
+import nl.han.dea.jasmijn.dtos.PlayListsDTO;
+import nl.han.dea.jasmijn.dtos.TrackDTO;
+import nl.han.dea.jasmijn.dtos.TracksDTO;
 
 import javax.inject.Inject;
-import java.util.List;
 
 public class PlayListService {
     private TrackService trackService;

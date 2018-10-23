@@ -1,8 +1,8 @@
 package nl.han.dea.jasmijn.services;
 
-import nl.han.dea.jasmijn.datasource.dao.TrackDAO;
-import nl.han.dea.jasmijn.dto.TrackDTO;
-import nl.han.dea.jasmijn.dto.TracksDTO;
+import nl.han.dea.jasmijn.datasource.daos.TrackDAO;
+import nl.han.dea.jasmijn.dtos.TrackDTO;
+import nl.han.dea.jasmijn.dtos.TracksDTO;
 
 import javax.inject.Inject;
 import java.util.ArrayList;

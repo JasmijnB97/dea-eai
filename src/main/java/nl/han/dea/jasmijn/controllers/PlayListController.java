@@ -1,7 +1,7 @@
-package nl.han.dea.jasmijn;
+package nl.han.dea.jasmijn.controllers;
 
-import nl.han.dea.jasmijn.dto.PlayListDTO;
-import nl.han.dea.jasmijn.dto.TrackDTO;
+import nl.han.dea.jasmijn.dtos.PlayListDTO;
+import nl.han.dea.jasmijn.dtos.TrackDTO;
 import nl.han.dea.jasmijn.services.PlayListService;
 import nl.han.dea.jasmijn.services.TrackService;
 import nl.han.dea.jasmijn.services.UserService;

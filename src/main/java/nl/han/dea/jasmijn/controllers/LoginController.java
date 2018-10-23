@@ -1,8 +1,8 @@
-package nl.han.dea.jasmijn;
+package nl.han.dea.jasmijn.controllers;
 
 import net.moznion.random.string.RandomStringGenerator;
-import nl.han.dea.jasmijn.dto.LoginRequestDTO;
-import nl.han.dea.jasmijn.dto.LoginResponseDTO;
+import nl.han.dea.jasmijn.dtos.LoginRequestDTO;
+import nl.han.dea.jasmijn.dtos.LoginResponseDTO;
 import nl.han.dea.jasmijn.services.UserService;
 
 import javax.inject.Inject;

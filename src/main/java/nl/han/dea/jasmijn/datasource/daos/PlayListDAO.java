@@ -1,8 +1,8 @@
-package nl.han.dea.jasmijn.datasource.dao;
+package nl.han.dea.jasmijn.datasource.daos;
 
-import nl.han.dea.jasmijn.dto.PlayListDTO;
-import nl.han.dea.jasmijn.dto.PlayListsDTO;
-import nl.han.dea.jasmijn.dto.TrackDTO;
+import nl.han.dea.jasmijn.dtos.PlayListDTO;
+import nl.han.dea.jasmijn.dtos.PlayListsDTO;
+import nl.han.dea.jasmijn.dtos.TrackDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
