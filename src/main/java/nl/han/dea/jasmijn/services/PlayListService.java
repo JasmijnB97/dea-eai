@@ -1,13 +1,12 @@
 package nl.han.dea.jasmijn.services;
 
-import nl.han.dea.jasmijn.dao.PlayListDAO;
-import nl.han.dea.jasmijn.dao.UserDAO;
+import nl.han.dea.jasmijn.datasource.dao.PlayListDAO;
 import nl.han.dea.jasmijn.dto.PlayListDTO;
 import nl.han.dea.jasmijn.dto.PlayListsDTO;
+import nl.han.dea.jasmijn.dto.TrackDTO;
+import nl.han.dea.jasmijn.dto.TracksDTO;
 
 import javax.inject.Inject;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlayListService {
@@ -16,21 +15,19 @@ public class PlayListService {
     private UserService userService;
 
 
-    public PlayListsDTO all(){
-        List<PlayListDTO> playListDTOS = null;
-            playListDTOS = playListDAO.getAllPlayLists(userService.getUserId());
+    public PlayListsDTO allPlayLists(){
+        PlayListsDTO playLists = playListDAO.getAllPlayLists(userService.getUserId());
+        int totalLength = 0;
 
-            //TODO checken of dit hier wel nodig is
-        for(PlayListDTO playlist : playListDTOS) {
-                //playlist.setTracks(trackService.allTracks());
-            playlist.setTracks(trackService.getTracksByPlaylistId(playlist.getId()));
+        for(PlayListDTO playlist : playLists.getPlaylists()) {
+            TracksDTO tracks = trackService.getTracksByPlaylistId(playlist.getId());
+            for (TrackDTO track : tracks.getTracks()) {
+                totalLength += track.getDuration();
+            }
+            playlist.setTracks(tracks.getTracks());
         }
-
-        PlayListsDTO playListsDTO = new PlayListsDTO(playListDTOS);
-        playListsDTO.setLength(trackService.getTotalTracksLength());
-        System.out.println("getLength = " + playListsDTO.getLength());
-
-        return new PlayListsDTO(playListDTOS);
+        playLists.setLength(totalLength);
+        return playLists;
     }
 
     public void createPlayList(PlayListDTO playListDTO){
@@ -47,6 +44,10 @@ public class PlayListService {
 
     public void deleteTrackFromPlayList(int playListId, int trackId) {
         playListDAO.deleteTrackFromPlayList(playListId, trackId);
+    }
+
+    public void addTrackToPlayList(int playListId, TrackDTO trackDTO) {
+        playListDAO.addTrackToPlayList(playListId, trackDTO);
     }
 
     @Inject

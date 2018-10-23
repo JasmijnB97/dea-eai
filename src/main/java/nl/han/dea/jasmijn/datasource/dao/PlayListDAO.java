@@ -1,6 +1,7 @@
-package nl.han.dea.jasmijn.dao;
+package nl.han.dea.jasmijn.datasource.dao;
 
 import nl.han.dea.jasmijn.dto.PlayListDTO;
+import nl.han.dea.jasmijn.dto.PlayListsDTO;
 import nl.han.dea.jasmijn.dto.TrackDTO;
 
 import java.sql.*;
@@ -16,8 +17,8 @@ public class PlayListDAO extends DAO {
     private static final String ADD_TRACK_TO_PLAYLIST = "INSERT INTO trackinplaylist (playlist_id, track_id) VALUES (?, ?)";
     private static final String DELETE_TRACK_FROM_PLAYLIST = "DELETE FROM trackinplaylist WHERE playlist_id = ? AND track_id = ?";
 
-    public ArrayList<PlayListDTO> getAllPlayLists(int userId)  {
-        ArrayList<PlayListDTO> playlists = new ArrayList<>();
+    public PlayListsDTO getAllPlayLists(int userId)  {
+        ArrayList<PlayListDTO> playLists = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -27,12 +28,11 @@ public class PlayListDAO extends DAO {
             rs = statement.executeQuery();
 
             while (rs.next()) {
-
                 PlayListDTO playListDTO = new PlayListDTO(rs.getInt("id"), rs.getString("name"), false, null); //
                 if(rs.getInt("owner_id") == userId){
                     playListDTO.setOwner(true);
                 }
-                playlists.add(playListDTO);
+                playLists.add(playListDTO);
             }
 
         } catch (SQLException e){
@@ -40,7 +40,7 @@ public class PlayListDAO extends DAO {
         } finally {
             closeConnection(connection, statement, rs);
         }
-        return playlists;
+        return new PlayListsDTO(playLists);
     }
 
     public void updatePlayList(int playlistId, PlayListDTO playListDTO){

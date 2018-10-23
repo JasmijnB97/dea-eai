@@ -1,24 +1,37 @@
 package nl.han.dea.jasmijn.services;
 
-import nl.han.dea.jasmijn.dao.TrackDAO;
+import nl.han.dea.jasmijn.datasource.dao.TrackDAO;
 import nl.han.dea.jasmijn.dto.TrackDTO;
+import nl.han.dea.jasmijn.dto.TracksDTO;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrackService {
     private TrackDAO trackDAO;
 
-    public List<TrackDTO> allTracks() {
+    public TracksDTO allTracks() {
         return trackDAO.getAllTracks();
     }
 
-    public List<TrackDTO> getTracksByPlaylistId(int id) {
-        return trackDAO.getTracksByPlaylistId(id);
+    public TrackDTO getTrackByTrackId(int trackId) {
+        TracksDTO tracks = allTracks();
+        for (TrackDTO track : tracks.getTracks()){
+            if (track.getId() == trackId){
+                return track;
+            }
+        }
+        return null;
     }
 
-    public int getTotalTracksLength(){
-        return trackDAO.getTotalTracksLength();
+    public TracksDTO getTracksByPlaylistId(int playListId) {
+        List<TrackDTO> tracks = new ArrayList<>();
+        List<Integer> trackIds = trackDAO.getTracksByPlaylistId(playListId);
+        for(int i = 0; i < trackIds.size(); i++){
+            tracks.add(getTrackByTrackId(trackIds.get(i)));
+        }
+        return new TracksDTO(tracks);
     }
 
     @Inject

@@ -1,7 +1,7 @@
 package nl.han.dea.jasmijn;
 
-import nl.han.dea.jasmijn.dto.LoginRequestDTO;
 import nl.han.dea.jasmijn.dto.PlayListDTO;
+import nl.han.dea.jasmijn.dto.TrackDTO;
 import nl.han.dea.jasmijn.services.PlayListService;
 import nl.han.dea.jasmijn.services.TrackService;
 import nl.han.dea.jasmijn.services.UserService;
@@ -27,6 +27,7 @@ public class PlayListControllerTest {
         playListController.setTrackService(trackService);
         Mockito.when(userService.tokenIsCorrect("123-345")).thenReturn(true);
     }
+//TODO overal op token testen???
 
     @Test
     public void testOfTokenIsCorrectReturnsOkInShowTracks(){
@@ -43,9 +44,17 @@ public class PlayListControllerTest {
     }
 
     @Test
+    public void testAddTrackToPlayListReturnsOk(){
+        TrackDTO trackDTO = new TrackDTO();
+        Response test = playListController.addTrackToPlaylist(1, trackDTO,"123-345");
+
+        Assertions.assertEquals(200, test.getStatus());
+    }
+
+    @Test
     public void testUpdatePlayListReturnsOk(){
         PlayListDTO playListDTO = new PlayListDTO();
-        Response test = playListController.updatePlayList(1, playListDTO);
+        Response test = playListController.updatePlayList(1, playListDTO, "123-345");
 
         Assertions.assertEquals(200, test.getStatus());
     }
@@ -53,16 +62,22 @@ public class PlayListControllerTest {
     @Test
     public void testCreatePlayListReturnsOk(){
         PlayListDTO playListDTO = new PlayListDTO();
-        Response test = playListController.createPlayList(playListDTO);
+        Response test = playListController.createPlayList(playListDTO, "123-345");
 
         Assertions.assertEquals(200, test.getStatus());
     }
 
     @Test
     public void testDeletePlayListReturnsOk(){
-        Response test = playListController.deletePlayList(1);
+        Response test = playListController.deletePlayList(1, "123-345");
 
         Assertions.assertEquals(200, test.getStatus());
     }
 
+    @Test
+    public void testDeleteTrackFromPlayListReturnsOk(){
+        Response test = playListController.deleteTrackFromPlayList(1, 2,"123-345");
+
+        Assertions.assertEquals(200, test.getStatus());
+    }
 }

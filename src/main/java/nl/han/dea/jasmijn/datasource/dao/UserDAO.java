@@ -1,4 +1,4 @@
-package nl.han.dea.jasmijn.dao;
+package nl.han.dea.jasmijn.datasource.dao;
 
 import nl.han.dea.jasmijn.dto.LoginRequestDTO;
 

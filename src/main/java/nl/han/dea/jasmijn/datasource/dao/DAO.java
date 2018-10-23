@@ -1,10 +1,8 @@
-package nl.han.dea.jasmijn.dao;
+package nl.han.dea.jasmijn.datasource.dao;
 
-import nl.han.dea.jasmijn.datasource.util.DatabaseProperties;
-import nl.han.dea.jasmijn.dto.PlayListDTO;
+import nl.han.dea.jasmijn.datasource.DatabaseProperties;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DAO {
@@ -50,20 +48,6 @@ public abstract class DAO {
         }
     }
 
-    //TODO dit is dubbel
-    protected void closeConnection(Connection connection, PreparedStatement statement){
-        try {
-            if(connection != null) {
-                connection.close();
-            }
-            if(statement != null) {
-                statement.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void updateQuery(String query, List<Object> values){
         Connection connection = null;
         PreparedStatement statement = null;
@@ -86,7 +70,7 @@ public abstract class DAO {
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
-            closeConnection(connection, statement);
+            closeConnection(connection, statement, null);
         }
     }
 

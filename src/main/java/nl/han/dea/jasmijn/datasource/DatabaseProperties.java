@@ -1,4 +1,4 @@
-package nl.han.dea.jasmijn.datasource.util;
+package nl.han.dea.jasmijn.datasource;
 
 import java.io.IOException;
 import java.util.Properties;

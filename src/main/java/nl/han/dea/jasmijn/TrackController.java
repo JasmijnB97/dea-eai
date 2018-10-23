@@ -20,8 +20,7 @@ public class TrackController {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response showTracks(){
-        TracksDTO tracksDTO = new TracksDTO(trackService.allTracks());
-        return Response.ok(tracksDTO).build();
+        return Response.ok(trackService.allTracks()).build();
     }
 
     @Inject
