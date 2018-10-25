@@ -34,6 +34,14 @@ public class TrackService {
         return new TracksDTO(tracks);
     }
 
+    public boolean equalsCurrentOfflineAvailable(int trackId, Boolean offlineAvailable) {
+        return getTrackByTrackId(trackId).isOfflineAvailable() == offlineAvailable;
+    }
+
+    public void updateOfflineAvailable(int trackId, Boolean offlineAvailable) {
+        trackDAO.updateOfflineAvailable(trackId, offlineAvailable);
+    }
+
     @Inject
     public void setTrackDAO(TrackDAO trackDAO){
         this.trackDAO = trackDAO;

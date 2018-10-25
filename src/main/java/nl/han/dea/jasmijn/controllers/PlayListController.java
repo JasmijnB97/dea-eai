@@ -41,7 +41,13 @@ public class PlayListController {
         if(!userService.tokenIsCorrect(token)){
             return Response.status(401).build();
         }
-        playListService.addTrackToPlayList(playListId,trackDTO);
+
+        Boolean offlineAvailable = trackDTO.isOfflineAvailable();
+        int trackId = trackDTO.getId();
+        if (!trackService.equalsCurrentOfflineAvailable(trackId, offlineAvailable)) {
+            trackService.updateOfflineAvailable(trackId, offlineAvailable);
+        }
+
         return Response.ok(trackService.getTracksByPlaylistId(playListId)).build();
     }
 

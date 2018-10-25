@@ -11,6 +11,7 @@ public class TrackDAO extends DAO {
 
     private static final String GET_ALL_TRACKS = "SELECT * FROM track";
     private static final String TRACKS_ID_BY_PLAYLIST_ID = "SELECT track_id FROM trackinplaylist WHERE playlist_id = ?";
+    private static final String UPDATE_OFFLINE_AVAILABLE = "UPDATE track SET offlineAvailable = ? WHERE id = ?";
 
     public TracksDTO getAllTracks(){
         ArrayList<TrackDTO> tracklists = new ArrayList<>();
@@ -59,4 +60,13 @@ public class TrackDAO extends DAO {
         }
         return trackIds;
     }
+
+    public void updateOfflineAvailable(int trackId, Boolean offlineAvailable) {
+        List<Object> bindings = new ArrayList<>();
+        bindings.add(offlineAvailable);
+        bindings.add(trackId);
+
+        updateQuery(UPDATE_OFFLINE_AVAILABLE, bindings);
+    }
+
 }
