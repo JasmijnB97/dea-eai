@@ -27,19 +27,19 @@ public class PlayListControllerTest {
         TrackService trackService = Mockito.mock(TrackService.class);
         playListController.setTrackService(trackService);
         Mockito.when(userService.tokenIsCorrect("123-345")).thenReturn(true);
+//        Mockito.when(trackService.equalsCurrentOfflineAvailable(1, true)).thenReturn(false);
     }
-//TODO overal op token testen???
 
     @Test
-    public void testOfTokenIsCorrectReturnsOkInShowTracks(){
+    public void testShowTracksReturnsOk(){
         Response test = playListController.showTracks(1, "123-345");
 
         Assertions.assertEquals(200, test.getStatus());
     }
 
     @Test
-    public void testOfTokenIsCorrectReturns401InShowTracks(){
-        Response test = playListController.showTracks(1, "2222222");
+    public void testOfTokenIsInvalidInShowTracksReturns401(){
+        Response test = playListController.showTracks(1, "3839bg");
 
         Assertions.assertEquals(401, test.getStatus());
     }
@@ -49,9 +49,20 @@ public class PlayListControllerTest {
     @Test
     public void testAddTrackToPlayListReturnsOk(){
         TrackDTO trackDTO = new TrackDTO();
+//        trackDTO.setId(1);
+//        trackDTO.setOfflineAvailable(true);
+
         Response test = playListController.addTrackToPlaylist(1, trackDTO,"123-345");
 
         Assertions.assertEquals(200, test.getStatus());
+    }
+
+    @Test
+    public void testOfTokenIsInvalidInAddTrackToPlayListReturns401(){
+        TrackDTO trackDTO = new TrackDTO();
+        Response test = playListController.addTrackToPlaylist(1, trackDTO,"3839bg");
+
+        Assertions.assertEquals(401, test.getStatus());
     }
 
     @Test
@@ -63,11 +74,27 @@ public class PlayListControllerTest {
     }
 
     @Test
+    public void testOfTokenIsInvalidInUpdatePlayListReturns401(){
+        PlayListDTO playListDTO = new PlayListDTO();
+        Response test = playListController.updatePlayList(1, playListDTO, "3839bg");
+
+        Assertions.assertEquals(401, test.getStatus());
+    }
+
+    @Test
     public void testCreatePlayListReturnsOk(){
         PlayListDTO playListDTO = new PlayListDTO();
         Response test = playListController.createPlayList(playListDTO, "123-345");
 
         Assertions.assertEquals(200, test.getStatus());
+    }
+
+    @Test
+    public void testOfTokenIsInvalidInCreatePlayListReturns401(){
+        PlayListDTO playListDTO = new PlayListDTO();
+        Response test = playListController.createPlayList(playListDTO, "3839bg");
+
+        Assertions.assertEquals(401, test.getStatus());
     }
 
     @Test
@@ -78,9 +105,23 @@ public class PlayListControllerTest {
     }
 
     @Test
+    public void testOfTokenIsInvalidInDeletePlayListReturns401(){
+        Response test = playListController.deletePlayList(1, "3839bg");
+
+        Assertions.assertEquals(401, test.getStatus());
+    }
+
+    @Test
     public void testDeleteTrackFromPlayListReturnsOk(){
         Response test = playListController.deleteTrackFromPlayList(1, 2,"123-345");
 
         Assertions.assertEquals(200, test.getStatus());
+    }
+
+    @Test
+    public void testOfTokenIsInvalidInDeleteTrackFromPlayListReturns401(){
+        Response test = playListController.deleteTrackFromPlayList(1, 2,"3839bg");
+
+        Assertions.assertEquals(401, test.getStatus());
     }
 }

@@ -42,6 +42,16 @@ public class TrackService {
         trackDAO.updateOfflineAvailable(trackId, offlineAvailable);
     }
 
+    public boolean trackInPlaylist(int playlistId, int trackId){
+        TracksDTO tracks = getTracksByPlaylistId(playlistId);
+        for (TrackDTO track : tracks.getTracks()){
+            if (track.getId() == trackId){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Inject
     public void setTrackDAO(TrackDAO trackDAO){
         this.trackDAO = trackDAO;

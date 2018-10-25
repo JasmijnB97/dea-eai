@@ -48,6 +48,11 @@ public class PlayListController {
             trackService.updateOfflineAvailable(trackId, offlineAvailable);
         }
 
+        //anders database error duplicate primary key
+        if (!trackService.trackInPlaylist(playListId, trackId)){
+            playListService.addTrackToPlayList(playListId,trackDTO);
+        }
+
         return Response.ok(trackService.getTracksByPlaylistId(playListId)).build();
     }
 

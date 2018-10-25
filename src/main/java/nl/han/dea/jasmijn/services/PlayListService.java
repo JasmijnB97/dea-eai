@@ -50,7 +50,7 @@ public class PlayListService {
     }
 
     @Inject
-    public void setUserService(TrackService trackService){
+    public void setTrackService(TrackService trackService){
         this.trackService = trackService;
     }
 
