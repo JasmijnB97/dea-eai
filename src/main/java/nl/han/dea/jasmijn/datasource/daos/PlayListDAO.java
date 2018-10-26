@@ -51,10 +51,10 @@ public class PlayListDAO extends DAO {
         updateQuery(UPDATE_NAME_PLAYLIST, bindings);
     }
 
-    public void createPlayList(PlayListDTO playListDTO, int user_id){
+    public void createPlayList(PlayListDTO playListDTO, int userId){
         List<Object> bindings = new ArrayList<>();
         bindings.add(playListDTO.getName());
-        bindings.add(user_id);
+        bindings.add(userId);
 
         updateQuery(CREATE_PLAYLIST, bindings);
     }
