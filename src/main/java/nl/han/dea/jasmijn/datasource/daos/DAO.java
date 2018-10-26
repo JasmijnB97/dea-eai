@@ -4,8 +4,11 @@ import nl.han.dea.jasmijn.datasource.DatabaseProperties;
 
 import java.sql.*;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class DAO {
+
+    private static final Logger LOGGER = Logger.getLogger(DAO.class.getName());
 
     protected DatabaseProperties dbProperties = new DatabaseProperties();
 
@@ -27,7 +30,7 @@ public abstract class DAO {
             return DriverManager.getConnection(dbProperties.connectionString());
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error connecting to a database: " + e);
+            LOGGER.info("Error connecting to a database: " + e);
         }
         return null;
     }
