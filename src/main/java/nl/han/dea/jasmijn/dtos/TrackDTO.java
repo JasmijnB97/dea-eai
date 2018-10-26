@@ -25,7 +25,6 @@ public class TrackDTO {
         this.publicationDate = publicationDate;
         this.description = description;
         this.offlineAvailable = offlineAvailable;
-
     }
 
     public int getId() {

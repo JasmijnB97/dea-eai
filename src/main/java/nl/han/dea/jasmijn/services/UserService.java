@@ -7,19 +7,19 @@ import javax.inject.Inject;
 public class UserService {
 
     private UserDAO userDAO;
-    private static String token;
+    private static String storedToken;
 
     public boolean tokenIsCorrect(String token){
-        return this.token.equals(token);
+        return storedToken.equals(token);
     }
 
     public void setToken(String token, String name, String password) {
-            this.token = token;
+            storedToken = token;
             userDAO.setToken(token, name, password);
     }
 
     public String getToken() {
-        return token;
+        return storedToken;
     }
 
     public boolean authenticate(String name, String password){
@@ -27,15 +27,15 @@ public class UserService {
     }
 
     public boolean validUserName (String name) {
-        return name.equals(userDAO.getUser(token).getUser());
+        return name.equals(userDAO.getUser(storedToken).getUser());
     }
 
     public boolean validPassword (String password) {
-        return password.equals(userDAO.getUser(token).getPassword());
+        return password.equals(userDAO.getUser(storedToken).getPassword());
     }
 
     public int getUserId(){
-        return userDAO.getUserId(token);
+        return userDAO.getUserId(storedToken);
     }
 
     @Inject
