@@ -1,48 +1,33 @@
 package nl.han.dea.jasmijn.services;
 
 import nl.han.dea.jasmijn.datasource.daos.UserDAO;
+import nl.han.dea.jasmijn.dtos.LoginResponseDTO;
 
 import javax.inject.Inject;
 
 public class UserService {
 
     private UserDAO userDAO;
-    private static String storedToken;
-
-    public boolean tokenIsCorrect(String token){
-        return storedToken.equals(token);
-    }
 
     public void setToken(String token, String name, String password) {
-            storedToken = token;
-            userDAO.setToken(token, name, password);
-    }
-
-    public String getToken() {
-        return storedToken;
+        userDAO.setToken(token, name, password);
     }
 
     public boolean authenticate(String name, String password){
-        return (validUserName(name) && validPassword(password));
+        LoginResponseDTO loginResponseDTO = userDAO.getUser(name, password);
+        return loginResponseDTO != null;
     }
 
-    public boolean validUserName (String name) {
-        return name.equals(userDAO.getUser(storedToken).getUser());
+    public boolean tokenIsCorrect(String token){
+        return userDAO.getUserId(token) != -1;
     }
 
-    public boolean validPassword (String password) {
-        return password.equals(userDAO.getUser(storedToken).getPassword());
-    }
-
-    public int getUserId(){
-        return userDAO.getUserId(storedToken);
+    public int getUserId(String token){
+        return userDAO.getUserId(token);
     }
 
     @Inject
     public void setUserDAO(UserDAO userDAO){
         this.userDAO = userDAO;
     }
-
-
-
 }

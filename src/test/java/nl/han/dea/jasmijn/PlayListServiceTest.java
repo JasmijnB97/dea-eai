@@ -36,7 +36,7 @@ public class PlayListServiceTest {
         PlayListsDTO playListsDTO = buildPlayListsDTO();
         Mockito.when(playListDAO.getAllPlayLists(Mockito.anyInt())).thenReturn(playListsDTO);
         Mockito.when(trackService.getTracksByPlaylistId(Mockito.anyInt())).thenReturn(new TracksDTO(buildTrackDTO()));
-        Assertions.assertEquals(playListsDTO, playListService.allPlayLists());
+        Assertions.assertEquals(playListsDTO, playListService.allPlayLists("jkdeh893"));
     }
 
     public List<TrackDTO> buildTrackDTO(){

@@ -25,13 +25,14 @@ public class LoginController {
 
         String name = loginRequestDTO.getUser();
         String password = loginRequestDTO.getPassword();
-        RandomStringGenerator generator = new RandomStringGenerator();
-        String token = generator.generateFromPattern("nnncnnncnccn");
-        userService.setToken(token, name, password);
 
         if(!userService.authenticate(name, password)){
             return Response.status(401).build();
         }
+
+        RandomStringGenerator generator = new RandomStringGenerator();
+        String token = generator.generateFromPattern("nnncnnncnccn");
+        userService.setToken(token, name, password);
 
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
         loginResponseDTO.setUser(name);

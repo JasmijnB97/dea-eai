@@ -19,8 +19,8 @@ public class PlayListController {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response showPlayLists(){
-        return Response.ok(playListService.allPlayLists()).build();
+    public Response showPlayLists(@QueryParam("token") String token){
+        return Response.ok(playListService.allPlayLists(token)).build();
     }
 
     @GET
@@ -64,7 +64,7 @@ public class PlayListController {
             return Response.status(401).build();
         }
         playListService.updatePlayList(id, playListDTO);
-        return Response.ok(playListService.allPlayLists()).build();
+        return Response.ok(playListService.allPlayLists(token)).build();
     }
 
     @POST
@@ -74,8 +74,8 @@ public class PlayListController {
         if(!userService.tokenIsCorrect(token)){
             return Response.status(401).build();
         }
-        playListService.createPlayList(playListDTO);
-        return Response.ok(playListService.allPlayLists()).build();
+        playListService.createPlayList(playListDTO, token);
+        return Response.ok(playListService.allPlayLists(token)).build();
     }
 
     @Path("{id}")
@@ -86,7 +86,7 @@ public class PlayListController {
             return Response.status(401).build();
         }
         playListService.deletePlayList(id);
-        return Response.ok(playListService.allPlayLists()).build();
+        return Response.ok(playListService.allPlayLists(token)).build();
     }
 
     @Path("{id}/tracks/{trackId}")

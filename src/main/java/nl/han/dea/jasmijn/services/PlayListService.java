@@ -14,8 +14,8 @@ public class PlayListService {
     private UserService userService;
 
 
-    public PlayListsDTO allPlayLists(){
-        PlayListsDTO playLists = playListDAO.getAllPlayLists(userService.getUserId());
+    public PlayListsDTO allPlayLists(String token){
+        PlayListsDTO playLists = playListDAO.getAllPlayLists(userService.getUserId(token));
         int totalLength = 0;
 
         for(PlayListDTO playlist : playLists.getPlaylists()) {
@@ -29,8 +29,8 @@ public class PlayListService {
         return playLists;
     }
 
-    public void createPlayList(PlayListDTO playListDTO){
-        playListDAO.createPlayList(playListDTO, userService.getUserId());
+    public void createPlayList(PlayListDTO playListDTO, String token){
+        playListDAO.createPlayList(playListDTO, userService.getUserId(token));
     }
 
     public void updatePlayList(int id, PlayListDTO playListDTO){
