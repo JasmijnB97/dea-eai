@@ -13,6 +13,7 @@ public class TrackDAO extends DAO {
     private static final String GET_ALL_TRACKS = "SELECT * FROM track";
     private static final String TRACKS_ID_BY_PLAYLIST_ID = "SELECT track_id FROM trackinplaylist WHERE playlist_id = ?";
     private static final String UPDATE_OFFLINE_AVAILABLE = "UPDATE track SET offlineAvailable = ? WHERE id = ?";
+    private static final String GET_TRACKS_NOT_IN_PLAYLIST = "SELECT * FROM track WHERE id NOT IN (SELECT track_id FROM trackinplaylist WHERE playlist_id = ?)";
 
     public TracksDTO getAllTracks(){
         ArrayList<TrackDTO> tracklists = new ArrayList<>();
@@ -22,6 +23,34 @@ public class TrackDAO extends DAO {
         try {
             connection = getDbConnection();
             statement = connection.prepareStatement(GET_ALL_TRACKS);
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                TrackDTO trackDTO = new TrackDTO().setId(rs.getInt("id")).setTitle(rs.getString("title"))
+                        .setPerformer(rs.getString("performer")).setDuration(rs.getInt("duration"))
+                        .setAlbum(rs.getString("album")).setPaycount(rs.getInt("paycount"))
+                        .setPublicationDate(rs.getString("publicationDate")).setDescription(rs.getString("description"))
+                        .setOfflineAvailable(rs.getBoolean("offlineAvailable"));
+                tracklists.add(trackDTO);
+            }
+
+        } catch (SQLException e){
+            LOGGER.log(Level.SEVERE, "Failed to get all tracks reason: " + e.getMessage());
+        } finally {
+            closeConnection(connection, statement, rs);
+        }
+        return new TracksDTO(tracklists);
+    }
+
+    public TracksDTO getTracksThatDontExistsInPlayList(int playListId){
+        ArrayList<TrackDTO> tracklists = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            connection = getDbConnection();
+            statement = connection.prepareStatement(GET_TRACKS_NOT_IN_PLAYLIST);
+            statement.setInt(1, playListId);
             rs = statement.executeQuery();
 
             while (rs.next()) {

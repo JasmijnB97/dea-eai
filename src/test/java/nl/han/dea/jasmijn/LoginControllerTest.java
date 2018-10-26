@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 
 import javax.ws.rs.core.Response;
 
-public class LoginControllerTest {
+public class LoginControllerTest extends TestUtils{
 
     private LoginController loginController;
 
@@ -19,15 +19,14 @@ public class LoginControllerTest {
         loginController = new LoginController();
         UserService userService = Mockito.mock(UserService.class);
         loginController.setUserService(userService);
-        Mockito.when(userService.authenticate("testuser", "testwachtwoord")).thenReturn(true);
-
+        Mockito.when(userService.authenticate(VALID_NAME, VALID_PASSWORD)).thenReturn(true);
     }
 
     @Test
     public void testOfUserServiceReturnOk() {
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
-        loginRequestDTO.setUser("testuser");
-        loginRequestDTO.setPassword("testwachtwoord");
+        loginRequestDTO.setUser(VALID_NAME);
+        loginRequestDTO.setPassword(VALID_PASSWORD);
 
         Response test = loginController.login(loginRequestDTO);
 
@@ -37,8 +36,8 @@ public class LoginControllerTest {
     @Test
     public void testOfUserServiceReturn401() {
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
-        loginRequestDTO.setUser("testuser");
-        loginRequestDTO.setPassword("fouttttttt");
+        loginRequestDTO.setUser("invalid name");
+        loginRequestDTO.setPassword("invalid password");
 
         Response test = loginController.login(loginRequestDTO);
 

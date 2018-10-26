@@ -15,6 +15,10 @@ public class TrackService {
         return trackDAO.getAllTracks();
     }
 
+    public TracksDTO getTracksThatDontExistsInPlayList(int playListId) {
+        return trackDAO.getTracksThatDontExistsInPlayList(playListId);
+    }
+
     public TrackDTO getTrackByTrackId(int trackId) {
         TracksDTO tracks = allTracks();
         for (TrackDTO track : tracks.getTracks()){

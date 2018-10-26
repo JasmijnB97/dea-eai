@@ -13,23 +13,22 @@ import org.mockito.Mockito;
 
 import javax.ws.rs.core.Response;
 
-public class PlayListControllerTest {
+public class PlayListControllerTest extends TestUtils{
 
     private PlayListController playListController;
-    private static final String VALID_TOKEN = "123a-345b";
-    private static final String INVALID_TOKEN = "b543-a321";
-    private static final int PLAYLIST_ID = 1;
-    private static final int TRACK_ID = 1;
 
     @BeforeEach
     public void setup(){
         playListController = new PlayListController();
+
         PlayListService playListService= Mockito.mock(PlayListService.class);
-        playListController.setPlayListService(playListService);
         UserService userService = Mockito.mock(UserService.class);
-        playListController.setUserService(userService);
         TrackService trackService = Mockito.mock(TrackService.class);
+
+        playListController.setPlayListService(playListService);
+        playListController.setUserService(userService);
         playListController.setTrackService(trackService);
+
         Mockito.when(userService.tokenIsCorrect(VALID_TOKEN)).thenReturn(true);
 //        Mockito.when(trackService.equalsCurrentOfflineAvailable(1, true)).thenReturn(false);
     }
@@ -117,14 +116,14 @@ public class PlayListControllerTest {
 
     @Test
     public void testDeleteTrackFromPlayListReturnsOk(){
-        Response test = playListController.deleteTrackFromPlayList(PLAYLIST_ID, 2,VALID_TOKEN);
+        Response test = playListController.deleteTrackFromPlayList(PLAYLIST_ID, TRACK_ID,VALID_TOKEN);
 
         Assertions.assertEquals(200, test.getStatus());
     }
 
     @Test
     public void testOfTokenIsInvalidInDeleteTrackFromPlayListReturns401(){
-        Response test = playListController.deleteTrackFromPlayList(PLAYLIST_ID, 2,INVALID_TOKEN);
+        Response test = playListController.deleteTrackFromPlayList(PLAYLIST_ID, TRACK_ID,INVALID_TOKEN);
 
         Assertions.assertEquals(401, test.getStatus());
     }

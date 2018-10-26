@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayListServiceTest {
+public class PlayListServiceTest extends TestUtils{
     private PlayListService playListService;
 
     @BeforeEach
@@ -37,24 +37,5 @@ public class PlayListServiceTest {
         Mockito.when(playListDAO.getAllPlayLists(Mockito.anyInt())).thenReturn(playListsDTO);
         Mockito.when(trackService.getTracksByPlaylistId(Mockito.anyInt())).thenReturn(new TracksDTO(buildTrackDTO()));
         Assertions.assertEquals(playListsDTO, playListService.allPlayLists("jkdeh893"));
-    }
-
-    public List<TrackDTO> buildTrackDTO(){
-        List<TrackDTO> trackDTOS = new ArrayList<>();
-        TrackDTO trackDTO = new TrackDTO();
-        trackDTO.setId(1);
-        trackDTO.setTitle("Track");
-        trackDTOS.add(trackDTO);
-        return trackDTOS;
-    }
-
-    public PlayListsDTO buildPlayListsDTO(){
-        PlayListDTO playListDTO = new PlayListDTO();
-        List<PlayListDTO> playListDTOS =  new ArrayList<>();
-        playListDTO.setId(1);
-        playListDTO.setName("Dance list");
-        playListDTO.setTracks(new TracksDTO(buildTrackDTO()).getTracks());
-        playListDTOS.add(playListDTO);
-        return new PlayListsDTO(playListDTOS);
     }
 }
