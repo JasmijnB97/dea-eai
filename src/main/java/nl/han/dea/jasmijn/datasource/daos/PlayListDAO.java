@@ -60,9 +60,9 @@ public class PlayListDAO extends DAO {
         updateQuery(CREATE_PLAYLIST, bindings);
     }
 
-    public void deletePlayList(int id){
+    public void deletePlayList(int playListId){
         List<Object> bindings = new ArrayList<>();
-        bindings.add(id);
+        bindings.add(playListId);
 
         updateQuery(DELETE_PLAYLIST, bindings);
     }

@@ -59,11 +59,11 @@ public class PlayListController {
     @Path("{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updatePlayList(@PathParam("id") int id, PlayListDTO playListDTO, @QueryParam("token") String token) {
+    public Response updatePlayList(@PathParam("id") int playlistId, PlayListDTO playListDTO, @QueryParam("token") String token) {
         if(!userService.tokenIsCorrect(token)){
             return Response.status(401).build();
         }
-        playListService.updatePlayList(id, playListDTO);
+        playListService.updatePlayList(playlistId, playListDTO);
         return Response.ok(playListService.allPlayLists(token)).build();
     }
 
@@ -81,11 +81,11 @@ public class PlayListController {
     @Path("{id}")
     @DELETE
     @Produces({MediaType.APPLICATION_JSON})
-    public Response deletePlayList(@PathParam("id") int id, @QueryParam("token") String token){
+    public Response deletePlayList(@PathParam("id") int playListId, @QueryParam("token") String token){
         if(!userService.tokenIsCorrect(token)){
             return Response.status(401).build();
         }
-        playListService.deletePlayList(id);
+        playListService.deletePlayList(playListId);
         return Response.ok(playListService.allPlayLists(token)).build();
     }
 

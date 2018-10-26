@@ -33,12 +33,12 @@ public class PlayListService {
         playListDAO.createPlayList(playListDTO, userService.getUserId(token));
     }
 
-    public void updatePlayList(int id, PlayListDTO playListDTO){
-        playListDAO.updatePlayList(id, playListDTO);
+    public void updatePlayList(int playlistId, PlayListDTO playListDTO){
+        playListDAO.updatePlayList(playlistId, playListDTO);
     }
 
-    public void deletePlayList(int id){
-        playListDAO.deletePlayList(id);
+    public void deletePlayList(int playListId){
+        playListDAO.deletePlayList(playListId);
     }
 
     public void deleteTrackFromPlayList(int playListId, int trackId) {
