@@ -16,11 +16,10 @@ public class LoginControllerTest {
 
     @BeforeEach
     public void setup(){
-        //setup
         loginController = new LoginController();
         UserService userService = Mockito.mock(UserService.class);
         loginController.setUserService(userService);
-        Mockito.when(userService.authenticate("testuser", "testwachtwoord")).thenReturn(true);//false
+        Mockito.when(userService.authenticate("testuser", "testwachtwoord")).thenReturn(true);
 
     }
 
@@ -29,10 +28,9 @@ public class LoginControllerTest {
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
         loginRequestDTO.setUser("testuser");
         loginRequestDTO.setPassword("testwachtwoord");
-        //test
+
         Response test = loginController.login(loginRequestDTO);
 
-        //Verify
         Assertions.assertEquals(200, test.getStatus());
     }
 
@@ -41,10 +39,9 @@ public class LoginControllerTest {
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
         loginRequestDTO.setUser("testuser");
         loginRequestDTO.setPassword("fouttttttt");
-        //test
+
         Response test = loginController.login(loginRequestDTO);
 
-        //Verify
         Assertions.assertEquals(401, test.getStatus());
     }
 
