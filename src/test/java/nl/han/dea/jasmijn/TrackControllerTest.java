@@ -26,7 +26,7 @@ public class TrackControllerTest extends TestUtils{
         this.trackController.setUserService(userService);
 
         Mockito.when(userService.tokenIsCorrect(VALID_TOKEN)).thenReturn(true);
-        Mockito.when(trackService.getTracksThatDontExistsInPlayList(Mockito.anyInt())).thenReturn(new TracksDTO(buildTrackDTO()));
+        Mockito.when(trackService.getTracksThatNotExistsInPlayList(Mockito.anyInt())).thenReturn(new TracksDTO(buildTrackDTO()));
     }
 
     @Test

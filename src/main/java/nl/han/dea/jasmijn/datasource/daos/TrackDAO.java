@@ -42,7 +42,7 @@ public class TrackDAO extends DAO {
         return new TracksDTO(tracklists);
     }
 
-    public TracksDTO getTracksThatDontExistsInPlayList(int playListId){
+    public TracksDTO getTracksThatNotExistsInPlayList(int playListId){
         ArrayList<TrackDTO> tracklists = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;

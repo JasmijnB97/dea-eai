@@ -24,7 +24,7 @@ public class TrackController {
         if(!userService.tokenIsCorrect(token)){
             return Response.status(401).build();
         }
-        return Response.ok(trackService.getTracksThatDontExistsInPlayList(playListId)).build();
+        return Response.ok(trackService.getTracksThatNotExistsInPlayList(playListId)).build();
     }
 
     @Inject

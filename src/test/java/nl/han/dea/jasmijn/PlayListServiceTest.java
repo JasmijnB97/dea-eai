@@ -18,14 +18,11 @@ import java.util.List;
 
 public class PlayListServiceTest extends TestUtils{
     private PlayListService playListService;
+    private PlayListsDTO playListsDTO;
 
     @BeforeEach
     public void setup(){
         playListService = new PlayListService();
-    }
-
-    @Test
-    public void testAllPlayListsReturnsAllPlayLists(){
         TrackService trackService = Mockito.mock(TrackService.class);
         UserService userService = Mockito.mock(UserService.class);
         PlayListDAO playListDAO = Mockito.mock(PlayListDAO.class);
@@ -33,9 +30,13 @@ public class PlayListServiceTest extends TestUtils{
         this.playListService.setPlayListDAO(playListDAO);
         this.playListService.setUserService(userService);
 
-        PlayListsDTO playListsDTO = buildPlayListsDTO();
+        playListsDTO = buildPlayListsDTO();
         Mockito.when(playListDAO.getAllPlayLists(Mockito.anyInt())).thenReturn(playListsDTO);
         Mockito.when(trackService.getTracksByPlaylistId(Mockito.anyInt())).thenReturn(new TracksDTO(buildTrackDTO()));
-        Assertions.assertEquals(playListsDTO, playListService.allPlayLists("jkdeh893"));
+    }
+
+    @Test
+    public void testAllPlayListsReturnsAllPlayLists(){
+        Assertions.assertEquals(playListsDTO, playListService.allPlayLists(VALID_TOKEN));
     }
 }
