@@ -27,13 +27,11 @@ public class UserService {
     }
 
     public boolean validUserName (String name) {
-        if(name.equals(userDAO.getUser(token).getUser())) return true;
-        return false;
+        return name.equals(userDAO.getUser(token).getUser());
     }
 
     public boolean validPassword (String password) {
-        if(password.equals(userDAO.getUser(token).getPassword())) return true;
-        return false;
+        return password.equals(userDAO.getUser(token).getPassword());
     }
 
     public int getUserId(){
