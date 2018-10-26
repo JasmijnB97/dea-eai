@@ -11,91 +11,84 @@ public class TrackDTO {
     private String description;
     private boolean offlineAvailable;
 
-    public TrackDTO(){
-
-    }
-    public TrackDTO(int id,String title, String performer, int duration, String album,
-                    int paycount, String publicationDate, String description, boolean offlineAvailable){
-        this.id = id;
-        this.title = title;
-        this.performer = performer;
-        this.duration = duration;
-        this.album = album;
-        this.paycount = paycount;
-        this.publicationDate = publicationDate;
-        this.description = description;
-        this.offlineAvailable = offlineAvailable;
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public TrackDTO setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public TrackDTO setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getPerformer() {
         return performer;
     }
 
-    public void setPerformer(String performer) {
+    public TrackDTO setPerformer(String performer) {
         this.performer = performer;
+        return this;
     }
 
     public int getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public TrackDTO setDuration(int duration) {
         this.duration = duration;
+        return this;
     }
 
     public String getAlbum() {
         return album;
     }
 
-    public void setAlbum(String album) {
+    public TrackDTO setAlbum(String album) {
         this.album = album;
+        return this;
     }
 
     public int getPaycount() {
         return paycount;
     }
 
-    public void setPaycount(int paycount) {
+    public TrackDTO setPaycount(int paycount) {
         this.paycount = paycount;
+        return this;
     }
 
     public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(String publicationDate) {
+    public TrackDTO setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public TrackDTO setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public boolean isOfflineAvailable() {
         return offlineAvailable;
     }
 
-    public void setOfflineAvailable(boolean offlineAvailable) {
+    public TrackDTO setOfflineAvailable(boolean offlineAvailable) {
         this.offlineAvailable = offlineAvailable;
+        return this;
     }
 }

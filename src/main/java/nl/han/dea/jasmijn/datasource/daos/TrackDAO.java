@@ -25,9 +25,11 @@ public class TrackDAO extends DAO {
             rs = statement.executeQuery();
 
             while (rs.next()) {
-                TrackDTO trackDTO = new TrackDTO(rs.getInt("id"), rs.getString("title"), rs.getString("performer"),
-                        rs.getInt("duration"), rs.getString("album"), rs.getInt("paycount"), rs.getString("publicationDate"),
-                        rs.getString("description"), rs.getBoolean("offlineAvailable"));
+                TrackDTO trackDTO = new TrackDTO().setId(rs.getInt("id")).setTitle(rs.getString("title"))
+                        .setPerformer(rs.getString("performer")).setDuration(rs.getInt("duration"))
+                        .setAlbum(rs.getString("album")).setPaycount(rs.getInt("paycount"))
+                        .setPublicationDate(rs.getString("publicationDate")).setDescription(rs.getString("description"))
+                        .setOfflineAvailable(rs.getBoolean("offlineAvailable"));
                 tracklists.add(trackDTO);
             }
 
