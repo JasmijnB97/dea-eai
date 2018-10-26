@@ -6,6 +6,7 @@ import nl.han.dea.jasmijn.dtos.TracksDTO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class TrackDAO extends DAO {
 
@@ -31,7 +32,7 @@ public class TrackDAO extends DAO {
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to get all tracks reason: " + e.getMessage());
         } finally {
             closeConnection(connection, statement, rs);
         }
@@ -54,7 +55,7 @@ public class TrackDAO extends DAO {
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to get tracks by playlist id reason: " + e.getMessage());
         } finally {
             closeConnection(connection, statement, rs);
         }

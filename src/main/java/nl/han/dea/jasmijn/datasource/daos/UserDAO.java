@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class UserDAO extends DAO {
 
@@ -33,7 +34,7 @@ public class UserDAO extends DAO {
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to get a user reason: " + e.getMessage());
         } finally {
             closeConnection(connection, statement, rs);
         }
@@ -65,7 +66,7 @@ public class UserDAO extends DAO {
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to get a user id reason: " + e.getMessage());
         } finally {
             closeConnection(connection, statement, rs);
         }

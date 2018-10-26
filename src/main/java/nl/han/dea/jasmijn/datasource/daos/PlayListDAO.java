@@ -7,6 +7,7 @@ import nl.han.dea.jasmijn.dtos.TrackDTO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class PlayListDAO extends DAO {
 
@@ -36,7 +37,7 @@ public class PlayListDAO extends DAO {
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to get all playLists reason: " + e.getMessage());
         } finally {
             closeConnection(connection, statement, rs);
         }

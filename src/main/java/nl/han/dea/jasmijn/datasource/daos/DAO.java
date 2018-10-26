@@ -4,11 +4,12 @@ import nl.han.dea.jasmijn.datasource.DatabaseProperties;
 
 import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class DAO {
 
-    private static final Logger LOGGER = Logger.getLogger(DAO.class.getName());
+    protected static final Logger LOGGER = Logger.getLogger(DAO.class.getName());
 
     protected DatabaseProperties dbProperties = new DatabaseProperties();
 
@@ -20,7 +21,7 @@ public abstract class DAO {
         try {
             Class.forName(dbProperties.getDriver());//hoi
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed loadDriver reason: " + e.getMessage());
         }
     }
 
@@ -47,7 +48,7 @@ public abstract class DAO {
                 resultSet.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed close connection reason: " + e.getMessage());
         }
     }
 
@@ -71,7 +72,7 @@ public abstract class DAO {
             }
             statement.execute();
         } catch (SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed update query reason: " + e.getMessage());
         } finally {
             closeConnection(connection, statement, null);
         }
