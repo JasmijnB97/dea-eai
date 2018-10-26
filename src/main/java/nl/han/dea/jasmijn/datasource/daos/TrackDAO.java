@@ -25,14 +25,7 @@ public class TrackDAO extends DAO {
             statement = connection.prepareStatement(GET_ALL_TRACKS);
             rs = statement.executeQuery();
 
-            while (rs.next()) {
-                TrackDTO trackDTO = new TrackDTO().setId(rs.getInt("id")).setTitle(rs.getString("title"))
-                        .setPerformer(rs.getString("performer")).setDuration(rs.getInt("duration"))
-                        .setAlbum(rs.getString("album")).setPaycount(rs.getInt("paycount"))
-                        .setPublicationDate(rs.getString("publicationDate")).setDescription(rs.getString("description"))
-                        .setOfflineAvailable(rs.getBoolean("offlineAvailable"));
-                tracklists.add(trackDTO);
-            }
+            buildTrackDTOWithResultSet(tracklists, rs);
 
         } catch (SQLException e){
             LOGGER.log(Level.SEVERE, "Failed to get all tracks reason: " + e.getMessage());
@@ -53,14 +46,7 @@ public class TrackDAO extends DAO {
             statement.setInt(1, playListId);
             rs = statement.executeQuery();
 
-            while (rs.next()) {
-                TrackDTO trackDTO = new TrackDTO().setId(rs.getInt("id")).setTitle(rs.getString("title"))
-                        .setPerformer(rs.getString("performer")).setDuration(rs.getInt("duration"))
-                        .setAlbum(rs.getString("album")).setPaycount(rs.getInt("paycount"))
-                        .setPublicationDate(rs.getString("publicationDate")).setDescription(rs.getString("description"))
-                        .setOfflineAvailable(rs.getBoolean("offlineAvailable"));
-                tracklists.add(trackDTO);
-            }
+            buildTrackDTOWithResultSet(tracklists, rs);
 
         } catch (SQLException e){
             LOGGER.log(Level.SEVERE, "Failed to get all tracks reason: " + e.getMessage());
@@ -68,6 +54,22 @@ public class TrackDAO extends DAO {
             closeConnection(connection, statement, rs);
         }
         return new TracksDTO(tracklists);
+    }
+
+    private void buildTrackDTOWithResultSet(ArrayList<TrackDTO> tracklists, ResultSet rs) throws SQLException {
+        while (rs.next()) {
+            TrackDTO trackDTO = new TrackDTO();
+            trackDTO.setId(rs.getInt("id"));
+            trackDTO.setTitle(rs.getString("title"));
+            trackDTO.setPerformer(rs.getString("performer"));
+            trackDTO.setDuration(rs.getInt("duration"));
+            trackDTO.setAlbum(rs.getString("album"));
+            trackDTO.setPaycount(rs.getInt("paycount"));
+            trackDTO.setPublicationDate(rs.getString("publicationDate"));
+            trackDTO.setDescription(rs.getString("description"));
+            trackDTO.setOfflineAvailable(rs.getBoolean("offlineAvailable"));
+            tracklists.add(trackDTO);
+        }
     }
 
     public List<Integer> getTracksByPlaylistId(int id){

@@ -15,80 +15,71 @@ public class TrackDTO {
         return id;
     }
 
-    public TrackDTO setId(int id) {
+    public void setId(int id) {
         this.id = id;
-        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public TrackDTO setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
-        return this;
     }
 
     public String getPerformer() {
         return performer;
     }
 
-    public TrackDTO setPerformer(String performer) {
+    public void setPerformer(String performer) {
         this.performer = performer;
-        return this;
     }
 
     public int getDuration() {
         return duration;
     }
 
-    public TrackDTO setDuration(int duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
-        return this;
     }
 
     public String getAlbum() {
         return album;
     }
 
-    public TrackDTO setAlbum(String album) {
+    public void setAlbum(String album) {
         this.album = album;
-        return this;
     }
 
     public int getPaycount() {
         return paycount;
     }
 
-    public TrackDTO setPaycount(int paycount) {
+    public void setPaycount(int paycount) {
         this.paycount = paycount;
-        return this;
     }
 
     public String getPublicationDate() {
         return publicationDate;
     }
 
-    public TrackDTO setPublicationDate(String publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
-        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public TrackDTO setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
     public boolean isOfflineAvailable() {
         return offlineAvailable;
     }
 
-    public TrackDTO setOfflineAvailable(boolean offlineAvailable) {
+    public void setOfflineAvailable(boolean offlineAvailable) {
         this.offlineAvailable = offlineAvailable;
-        return this;
     }
 }

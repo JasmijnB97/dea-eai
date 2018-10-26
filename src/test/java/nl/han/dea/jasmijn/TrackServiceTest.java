@@ -1,6 +1,7 @@
 package nl.han.dea.jasmijn;
 
 import nl.han.dea.jasmijn.datasource.daos.TrackDAO;
+import nl.han.dea.jasmijn.dtos.TrackDTO;
 import nl.han.dea.jasmijn.dtos.TracksDTO;
 import nl.han.dea.jasmijn.services.TrackService;
 import org.junit.jupiter.api.Assertions;
@@ -38,7 +39,6 @@ public class TrackServiceTest extends TestUtils{
     public void testGetTracksThatNotExistsInPlayListReturnsNullWhenAllTracksExistsInPlayList(){
         Assertions.assertEquals(null, trackService.getTracksThatNotExistsInPlayList(2));
     }
-
 
 
 
