@@ -30,7 +30,6 @@ public abstract class DAO {
         try {
             return DriverManager.getConnection(dbProperties.connectionString());
         } catch (SQLException e) {
-            e.printStackTrace();
             LOGGER.info("Error connecting to a database: " + e);
         }
         return null;
