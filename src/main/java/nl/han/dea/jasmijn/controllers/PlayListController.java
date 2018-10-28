@@ -1,6 +1,7 @@
 package nl.han.dea.jasmijn.controllers;
 
 import nl.han.dea.jasmijn.dtos.PlayListDTO;
+import nl.han.dea.jasmijn.dtos.PlayListRequestDTO;
 import nl.han.dea.jasmijn.dtos.TrackDTO;
 import nl.han.dea.jasmijn.services.PlayListService;
 import nl.han.dea.jasmijn.services.TrackService;
@@ -59,11 +60,11 @@ public class PlayListController {
     @Path("{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updatePlayList(@PathParam("id") int playlistId, PlayListDTO playListDTO, @QueryParam("token") String token) {
+    public Response updatePlayList(@PathParam("id") int playlistId, PlayListRequestDTO playListRequestDTO, @QueryParam("token") String token) {
         if(!userService.tokenIsCorrect(token)){
             return Response.status(401).build();
         }
-        playListService.updatePlayList(playlistId, playListDTO);
+        playListService.updatePlayList(playlistId, playListRequestDTO.getName());
         return Response.ok(playListService.allPlayLists(token)).build();
     }
 

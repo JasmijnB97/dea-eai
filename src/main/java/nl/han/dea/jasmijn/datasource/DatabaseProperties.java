@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseProperties {
-    private Logger logger = Logger.getLogger(getClass().getName());
+    private final Logger LOGGER = Logger.getLogger(getClass().getName());
     private Properties properties;
 
     public DatabaseProperties() {
@@ -14,7 +14,7 @@ public class DatabaseProperties {
         try {
             properties.load(getClass().getClassLoader().getResourceAsStream("database.properties"));
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Can't access property file database.properties", e);
+            LOGGER.log(Level.SEVERE, "Can't access property file database.properties", e);
         }
     }
 

@@ -29,9 +29,14 @@ public class PlayListDAO extends DAO {
             rs = statement.executeQuery();
 
             while (rs.next()) {
-                PlayListDTO playListDTO = new PlayListDTO(rs.getInt("id"), rs.getString("name"), false, null); //
+                PlayListDTO playListDTO = new PlayListDTO();
+                playListDTO.setId(rs.getInt("id"));
+                playListDTO.setName(rs.getString("name"));
+                playListDTO.setTracks(null);
                 if(rs.getInt("owner_id") == userId){
                     playListDTO.setOwner(true);
+                } else {
+                    playListDTO.setOwner(false);
                 }
                 playLists.add(playListDTO);
             }
@@ -44,10 +49,10 @@ public class PlayListDAO extends DAO {
         return new PlayListsDTO(playLists);
     }
 
-    public void updatePlayList(int playlistId, PlayListDTO playListDTO){
+    public void updatePlayList(int playlistId, String name){
         List<Object> bindings = new ArrayList<>();
+        bindings.add(name);
         bindings.add(playlistId);
-        bindings.add(playListDTO);
 
         updateQuery(UPDATE_NAME_PLAYLIST, bindings);
     }

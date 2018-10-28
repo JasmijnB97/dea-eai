@@ -2,6 +2,7 @@ package nl.han.dea.jasmijn;
 
 import nl.han.dea.jasmijn.controllers.PlayListController;
 import nl.han.dea.jasmijn.dtos.PlayListDTO;
+import nl.han.dea.jasmijn.dtos.PlayListRequestDTO;
 import nl.han.dea.jasmijn.dtos.TrackDTO;
 import nl.han.dea.jasmijn.services.PlayListService;
 import nl.han.dea.jasmijn.services.TrackService;
@@ -30,7 +31,6 @@ public class PlayListControllerTest extends TestUtils{
         playListController.setTrackService(trackService);
 
         Mockito.when(userService.tokenIsCorrect(VALID_TOKEN)).thenReturn(true);
-//        Mockito.when(trackService.equalsCurrentOfflineAvailable(1, true)).thenReturn(false);
     }
 
     @Test
@@ -47,14 +47,9 @@ public class PlayListControllerTest extends TestUtils{
         Assertions.assertEquals(401, test.getStatus());
     }
 
-
-    //TODO addTrackToPlaylist -> offline availeble testen
     @Test
     public void testAddTrackToPlayListReturnsOk(){
         TrackDTO trackDTO = new TrackDTO();
-//        trackDTO.setId(1);
-//        trackDTO.setOfflineAvailable(true);
-
         Response test = playListController.addTrackToPlaylist(PLAYLIST_ID, trackDTO,VALID_TOKEN);
 
         Assertions.assertEquals(200, test.getStatus());
@@ -70,16 +65,16 @@ public class PlayListControllerTest extends TestUtils{
 
     @Test
     public void testUpdatePlayListReturnsOk(){
-        PlayListDTO playListDTO = new PlayListDTO();
-        Response test = playListController.updatePlayList(PLAYLIST_ID, playListDTO, VALID_TOKEN);
+        PlayListRequestDTO playListRequestDTO = new PlayListRequestDTO();
+        Response test = playListController.updatePlayList(PLAYLIST_ID, playListRequestDTO, VALID_TOKEN);
 
         Assertions.assertEquals(200, test.getStatus());
     }
 
     @Test
     public void testOfTokenIsInvalidInUpdatePlayListReturns401(){
-        PlayListDTO playListDTO = new PlayListDTO();
-        Response test = playListController.updatePlayList(PLAYLIST_ID, playListDTO, INVALID_TOKEN);
+        PlayListRequestDTO playListRequestDTO = new PlayListRequestDTO();
+        Response test = playListController.updatePlayList(PLAYLIST_ID, playListRequestDTO, INVALID_TOKEN);
 
         Assertions.assertEquals(401, test.getStatus());
     }

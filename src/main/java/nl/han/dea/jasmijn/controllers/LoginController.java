@@ -19,8 +19,8 @@ public class LoginController {
     private UserService userService;
 
     @POST
-    @Produces({MediaType.APPLICATION_JSON}) //geef je aan wat voor datatype de server terug moet geven.
-    @Consumes({MediaType.APPLICATION_JSON})  //wat voor datatype de server accepteert.
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public Response login(LoginRequestDTO loginRequestDTO){
 
         String name = loginRequestDTO.getUser();

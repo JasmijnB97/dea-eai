@@ -25,7 +25,6 @@ public class TrackController {
             return Response.status(401).build();
         }
         return Response.ok(trackService.getTracksThatNotExistsInPlayList(playListId)).build();
-
     }
 
     @Inject

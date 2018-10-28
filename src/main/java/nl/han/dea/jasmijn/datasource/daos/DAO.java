@@ -19,7 +19,7 @@ public abstract class DAO {
 
     protected void loadDriver() {
         try {
-            Class.forName(dbProperties.getDriver());//hoi
+            Class.forName(dbProperties.getDriver());
         } catch (ClassNotFoundException e) {
             LOGGER.log(Level.SEVERE, "Failed loadDriver reason: " + e.getMessage());
         }
@@ -51,7 +51,7 @@ public abstract class DAO {
         }
     }
 
-    public void updateQuery(String query, List<Object> values){
+    protected void updateQuery(String query, List<Object> values){
         Connection connection = null;
         PreparedStatement statement = null;
         try{

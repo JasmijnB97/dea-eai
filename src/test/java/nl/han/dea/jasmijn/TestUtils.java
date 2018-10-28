@@ -20,8 +20,9 @@ public class TestUtils {
     public List<TrackDTO> buildTrackDTO(){
         List<TrackDTO> trackDTOS = new ArrayList<>();
         TrackDTO trackDTO = new TrackDTO();
-        trackDTO.setId(1);
+        trackDTO.setId(TRACK_ID);
         trackDTO.setTitle("Track");
+        trackDTO.setOfflineAvailable(true);
         trackDTOS.add(trackDTO);
         return trackDTOS;
     }
@@ -29,7 +30,7 @@ public class TestUtils {
     public PlayListsDTO buildPlayListsDTO(){
         PlayListDTO playListDTO = new PlayListDTO();
         List<PlayListDTO> playListDTOS =  new ArrayList<>();
-        playListDTO.setId(1);
+        playListDTO.setId(PLAYLIST_ID);
         playListDTO.setName("Dance list");
         playListDTO.setTracks(new TracksDTO(buildTrackDTO()).getTracks());
         playListDTOS.add(playListDTO);

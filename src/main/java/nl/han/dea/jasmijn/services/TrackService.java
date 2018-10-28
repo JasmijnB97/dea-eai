@@ -19,7 +19,6 @@ public class TrackService {
         return trackDAO.getTracksThatNotExistsInPlayList(playListId);
     }
 
-    //TODO UNIT TEST
     public TrackDTO getTrackByTrackId(int trackId) {
         TracksDTO tracks = allTracks();
         for (TrackDTO track : tracks.getTracks()){
@@ -30,7 +29,6 @@ public class TrackService {
         return null;
     }
 
-    //TODO UNIT TEST
     public TracksDTO getTracksByPlaylistId(int playListId) {
         List<TrackDTO> tracks = new ArrayList<>();
         List<Integer> trackIds = trackDAO.getTracksByPlaylistId(playListId);
