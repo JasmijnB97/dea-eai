@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseProperties {
-    private final Logger LOGGER = Logger.getLogger(getClass().getName());
+    private static final Logger LOGGER = Logger.getLogger(DatabaseProperties.class.getName());
     private Properties properties;
 
     public DatabaseProperties() {

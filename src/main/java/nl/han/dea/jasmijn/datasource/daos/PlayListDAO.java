@@ -33,11 +33,8 @@ public class PlayListDAO extends DAO {
                 playListDTO.setId(rs.getInt("id"));
                 playListDTO.setName(rs.getString("name"));
                 playListDTO.setTracks(null);
-                if(rs.getInt("owner_id") == userId){
-                    playListDTO.setOwner(true);
-                } else {
-                    playListDTO.setOwner(false);
-                }
+                playListDTO.setOwner(rs.getInt("owner_id") == userId);
+
                 playLists.add(playListDTO);
             }
 
